@@ -23,6 +23,10 @@
               :donePath="donePath"
               :isInVsCode="isInVsCode()"
             />
+            <Busy
+              v-if="currentPrompt.status === 'pending' && !isDone" 
+              :currentPrompt="currentPrompt"
+            />
             <Step
               v-if="prompts.length"
               ref="step"
@@ -54,6 +58,7 @@ import Header from "./components/Header.vue"
 import Navigation from "./components/Navigation.vue"
 import Step from "./components/Step.vue"
 import Done from "./components/Done.vue"
+import Busy from "./components/Busy.vue";
 import { RpcBrowser } from "@sap-devx/webview-rpc/out.browser/rpc-browser";
 import { RpcBrowserWebSockets } from "@sap-devx/webview-rpc/out.browser/rpc-browser-ws";
 import * as _ from "lodash"
@@ -67,7 +72,8 @@ export default {
     Header,
     Navigation,
     Step,
-    Done
+    Done,
+    Busy
   },
   data() {
     return {
